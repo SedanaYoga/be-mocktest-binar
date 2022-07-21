@@ -1,12 +1,26 @@
 const express = require('express')
+const path = require('path')
+const morgan = require('morgan')
+const routes = require('./routes')
+
+// App Initialization
 const app = express()
 
-const port = process.env.PORT || 3000
+// Development setup
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+  app.use(morgan('dev'))
+}
 
-app.get('/', (req, res) => {
-  res.status(200).send('Hello World')
-})
+// Middleware
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
 
-app.listen(port, () => {
-  console.log('Server is listening')
+// Routes
+app.use(routes)
+
+// Server Listener to PORT variable
+const PORT = process.env.PORT || 3000
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`)
 })
