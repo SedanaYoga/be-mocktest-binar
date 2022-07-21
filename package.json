@@ -1,0 +1,26 @@
+{
+  "name": "Binar Backend Mock Test",
+  "version": "1.0.0",
+  "description": "A project to build an API for auth user and product CRUD",
+  "main": "index.js",
+  "engines": {
+    "node": "18.6.0"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "express": "^4.18.1",
+    "pg": "^8.7.3",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.21.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}
