@@ -39,7 +39,6 @@ exports.signupHandler = asyncHandler(async (req, res) => {
   }
 
   try {
-    console.log({ name, email, password })
     const user = await User.signUp({
       password,
       name,
@@ -54,3 +53,18 @@ exports.signupHandler = asyncHandler(async (req, res) => {
     return res.status(400).json(err)
   }
 })
+
+// @desc Check the logged in user
+// @route GET /auth/whoami
+// @access Private
+exports.whoami = (req, res) => {
+  const { name, email, createdAt, updatedAt } = req.user
+  const dataToJson = {
+    status: 'OK',
+    result: {
+      user: { name, email, createdAt, updatedAt },
+    },
+    errors: {},
+  }
+  res.status(200).json(dataToJson)
+}

@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const { notFound, errorHandler } = require('../middleware/errorMiddleware')
 const userRoute = require('./userRoute')
-// const productRoute = require('./productRoute')
+const productRoute = require('./productRoute')
 
 router.get('/', (req, res) => {
   return res.status(200).json({
@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
   })
 })
 router.use(userRoute)
-// router.use(productRoute)
+router.use(productRoute)
 router.use(notFound)
 router.use(errorHandler)
 
