@@ -1,5 +1,6 @@
 const asyncHandler = require('express-async-handler')
 const { User } = require('../models')
+const { format } = require('../utils/textUtils')
 
 // @desc Login new user
 // @route POST /auth/signup
@@ -7,14 +8,7 @@ const { User } = require('../models')
 exports.loginHandler = asyncHandler(async (req, res) => {
   const { email, password } = req.body
   const user = await User.authenticate({ email, password })
-  const dataToJson = {
-    status: 'OK',
-    result: {
-      access_token: user.generateToken(),
-    },
-    errors: {},
-  }
-  res.status(200).json(dataToJson)
+  res.status(200).json(format('OK', { access_token: user.generateToken() }))
 })
 
 // @desc Register new user
@@ -50,7 +44,7 @@ exports.signupHandler = asyncHandler(async (req, res) => {
       errors: {},
     })
   } catch (err) {
-    return res.status(400).json(err)
+    return res.status(500).json(err)
   }
 })
 

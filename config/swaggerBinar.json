@@ -1,0 +1,564 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "**A Documentation of Binar Backend Mock Test - RESTFul API**. The application only provide API Route that comprise of CRUD functionalities in Product model and Authentication of User.",
+    "version": "1.0.0",
+    "title": "Binar FSW Chapter 8 - API Docs"
+  },
+  "host": "localhost:3000",
+  "tags": [
+    {
+      "name": "Authentication",
+      "description": "Authentication including Login and Signup"
+    },
+    {
+      "name": "Product",
+      "description": "Product CRUD Functionalities"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/auth/login": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "User to login",
+        "description": "Here you can login with email and password and getting a token",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "Payload",
+            "description": "Payload consists of email and password",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "email",
+                "password"
+              ],
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "example": "admin@mock.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "test123"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success login with email and password",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "OK"
+                },
+                "result": {
+                  "type": "object",
+                  "properties": {
+                    "access_token": {
+                      "type": "string",
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjU4NTYxNTczLCJleHAiOjE2NTg2NDc5NzN9.RckNc5U2qIu55bfLwuxaG1OpbTGrhYQ0LcQN2ZuKu0A"
+                    }
+                  }
+                },
+                "errors": {
+                  "type": "object",
+                  "example": {}
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Account doesn't exist",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "ERROR"
+                },
+                "result": {
+                  "type": "string",
+                  "example": null
+                },
+                "errors": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Account does not exist"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/signup": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "User to signup",
+        "description": "Here is where you signup with name, email, password",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "Payload",
+            "description": "Payload consists of name, email, password",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "admin"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "admin@mail.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "test123"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success signup with email and password",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "OK"
+                },
+                "result": {
+                  "$ref": "#/definitions/User"
+                },
+                "errors": {
+                  "type": "object",
+                  "example": {}
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Data is not complete",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "ERROR"
+                },
+                "result": {
+                  "type": "string",
+                  "example": null
+                },
+                "errors": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Please enter all user data!"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/products": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Retrieve All Products",
+        "description": "Here you can get all products with a valid jwt token",
+        "security": [
+          {
+            "jwt_token": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success retrieving all product",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "OK"
+                },
+                "result": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Product"
+                  }
+                },
+                "errors": {
+                  "type": "object",
+                  "example": {}
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No products found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "ERROR"
+                },
+                "result": {
+                  "type": "string",
+                  "example": null
+                },
+                "errors": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "No products on this database yet"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Create a product",
+        "description": "Here you can add product by putting name, price, and imageUrl",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "Payload",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Macbook Pro 2022 14inch"
+                },
+                "price": {
+                  "type": "integer",
+                  "example": 1000
+                },
+                "imageUrl": {
+                  "type": "string",
+                  "example": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mbp14-spacegray-select-202110?wid=904&hei=840&fmt=jpeg&qlt=90&.v=1632788573000"
+                }
+              }
+            }
+          }
+        ],
+        "security": [
+          {
+            "jwt_token": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success creating a product",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "object",
+                  "example": "OK"
+                },
+                "result": {
+                  "$ref": "#/definitions/Product"
+                },
+                "errors": {
+                  "type": "object",
+                  "example": {}
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "User putting invalid property",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "ERROR"
+                },
+                "result": {
+                  "type": "string",
+                  "example": null
+                },
+                "errors": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "pricing is an invalid property"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/products/{id}": {
+      "put": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Update Product by ID",
+        "description": "Id parameter is used for updating product data",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of Product that needs to be fetched",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The updated data",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Macbook Pro 2022 14inch"
+                },
+                "price": {
+                  "type": "integer",
+                  "example": 1000
+                },
+                "imageUrl": {
+                  "type": "string",
+                  "example": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mbp14-spacegray-select-202110?wid=904&hei=840&fmt=jpeg&qlt=90&.v=1632788573000"
+                }
+              }
+            }
+          }
+        ],
+        "security": [
+          {
+            "jwt_token": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success updating the product",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "OK"
+                },
+                "result": {
+                  "$ref": "#/definitions/Product"
+                },
+                "errors": {
+                  "type": "object",
+                  "example": {}
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid property",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "ERROR"
+                },
+                "result": {
+                  "type": "string",
+                  "example": null
+                },
+                "errors": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "pricing is an invalid property"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Delete Product by ID",
+        "description": "Id parameter is used for deleting product data",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the product that wants to be deleted",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "security": [
+          {
+            "jwt_token": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success deleting a product",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "OK"
+                },
+                "result": {
+                  "type": "string",
+                  "example": "Success deleting product with id: 1"
+                },
+                "errors": {
+                  "type": "object",
+                  "example": {}
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Invalid Product ID",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "ERROR"
+                },
+                "result": {
+                  "type": "string",
+                  "example": null
+                },
+                "errors": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "ID not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "jwt_token": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "email"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1
+        },
+        "name": {
+          "type": "string",
+          "example": "admin"
+        },
+        "email": {
+          "type": "string",
+          "example": "admin@mail.com"
+        },
+        "createdAt": {
+          "type": "string",
+          "example": "2022-03-15 21:35:41.542+08"
+        },
+        "updatedAt": {
+          "type": "string",
+          "example": "2022-03-15 21:35:41.542+08"
+        }
+      }
+    },
+    "Product": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1
+        },
+        "name": {
+          "type": "string",
+          "example": "Macbook Pro 2022 14inch"
+        },
+        "price": {
+          "type": "integer",
+          "example": 1000
+        },
+        "imageUrl": {
+          "type": "string",
+          "example": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mbp14-spacegray-select-202110?wid=904&hei=840&fmt=jpeg&qlt=90&.v=1632788573000"
+        },
+        "createdAt": {
+          "type": "string",
+          "example": "2022-03-15 21:35:41.542+08"
+        },
+        "updatedAt": {
+          "type": "string",
+          "example": "2022-03-15 21:35:41.542+08"
+        }
+      }
+    }
+  }
+}
