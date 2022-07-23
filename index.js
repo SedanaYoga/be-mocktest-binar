@@ -1,5 +1,4 @@
 const express = require('express')
-const morgan = require('morgan')
 const routes = require('./routes')
 const passportJwt = require('./config/passport')
 
@@ -9,7 +8,7 @@ const app = express()
 // Development setup
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
-  app.use(morgan('dev'))
+  app.use(require('morgan')('dev'))
 }
 
 // Middleware
