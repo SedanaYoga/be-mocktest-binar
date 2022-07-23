@@ -7,7 +7,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const options = {
-  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  jwtFromRequest: ExtractJwt.fromHeader('authorization'),
   secretOrKey: process.env.SECRET_JWT,
 }
 

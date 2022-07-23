@@ -8,7 +8,9 @@ const { format } = require('../utils/textUtils')
 exports.loginHandler = asyncHandler(async (req, res) => {
   const { email, password } = req.body
   const user = await User.authenticate({ email, password })
-  res.status(200).json(format('OK', { access_token: user.generateToken() }))
+  res
+    .status(200)
+    .json(format('OK', { access_token: `${user.generateToken()}` }))
 })
 
 // @desc Register new user
