@@ -3,7 +3,7 @@
   "info": {
     "description": "**A Documentation of Binar Backend Mock Test - RESTFul API**. The application only provide API Route that comprise of CRUD functionalities in Product model and Authentication of User.",
     "version": "1.0.0",
-    "title": "Binar FSW Chapter 8 - API Docs"
+    "title": "Binar Backend Mock Test - API Docs"
   },
   "host": "mocktest-be.herokuapp.com",
   "tags": [
