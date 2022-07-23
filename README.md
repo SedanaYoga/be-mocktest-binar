@@ -18,7 +18,7 @@
 In this mock test, the task was pretty straight forward. We have to create a fully functioned Backend System with RESTful API and ready to be consumed for frontend system. The project was deployed in https://mocktest-be.herokuapp.com
 
 ![Login][login]
-![Register][register]
+![SignUp][signup]
 ![GetAllProducts][getallproducts]
 ![GetProductById][getproductbyid]
 ![CreateProduct][createproduct]
@@ -155,7 +155,7 @@ LinkedIn - [Sedana Yoga](https://github.com/SedanaYoga)
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
 [login]: docs/login.png
-[signup]: docs/register.png
+[signup]: docs/signup.png
 [getallproducts]: docs/getAllProducts.png
 [getproductbyid]: docs/getProductById.png
 [createproduct]: docs/createProduct.png
