@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "title": "Binar FSW Chapter 8 - API Docs"
   },
-  "host": "localhost:3000",
+  "host": "mocktest-be.herokuapp.com",
   "tags": [
     {
       "name": "Authentication",
@@ -17,7 +17,7 @@
     }
   ],
   "schemes": [
-    "http"
+    "https"
   ],
   "paths": {
     "/auth/login": {
@@ -332,6 +332,73 @@
       }
     },
     "/v1/products/{id}": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Get Product by ID",
+        "description": "Id parameter is used for getting product data",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of Product that needs to be fetched",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "security": [
+          {
+            "jwt_token": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success retrieving the product",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "OK"
+                },
+                "result": {
+                  "$ref": "#/definitions/Product"
+                },
+                "errors": {
+                  "type": "object",
+                  "example": {}
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No products found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "ERROR"
+                },
+                "result": {
+                  "type": "string",
+                  "example": null
+                },
+                "errors": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "No product with id: 1"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
       "put": {
         "tags": [
           "Product"
