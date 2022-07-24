@@ -151,6 +151,56 @@ LinkedIn - [Sedana Yoga](https://github.com/SedanaYoga)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
+## Assignment
+
+### 1. Disebutkan seorang client membutuhkan layanan aplikasi antar makanan. Dan Anda diminta untuk _membuat desain sistem_ dengan kriteria pelanggan hanya dilayani dengan mobile apps.
+
+Desainlah stack backend dan micro service layanan tersebut beserta tools dan alasan mengapa memilih design dan tools tersebut.
+**Answer:**
+Banyak perusahaan saat ini sudah mengembangkan arsitektur _microservices_ pada aplikasi. Kemudahan dan efisiensi yang didapat sangat berbeda dengan pengembangan aplikasi dengan arsitektur monolitik ini karena aplikasi terbagi menjadi beberapa services (feature/service level) yang di setiap servicenya punya system desainnya masing-masing, contohnya: tech stack untuk service authentication mungkin berbeda dengan stack service payment, maka dari itu jika ada masalah di satu service, service yang lain tidak ada sangkut pautnya jadi issue terisolasi dengan baik.
+![Microservice][microservice]
+Desain microservice diperlukan untuk beberapa alasan, seperti:
+
+1. Meningkatkan kecepatan dan skalabilitas
+2. Meningkatkan produktivitas dan _agility_
+3. Deployment lebih aman dan lancar
+4. Maintenance yang mudah
+5. Tidak terbatas pada satu tech stack di setiap servicenya
+6. Mampu mengisolasi kesalahan
+7. Mengurangi ketergantungan dengan layanan eksternal
+
+**Tech Stack:**
+
+1. **Frontend:**
+   - Flutter (menggunakan native language dengan asumsi akan lebih cepat, meningkatkan UX)
+2. **Backend:**
+   - NodeJS (ExpressJS menggunakan language umum untuk digunakan di segala platform dan RESTful API yang mudah untuk dipahami)
+   - PostgreSQL (NoSQL lebih baik dari segi konsistensi sehingga data tidak berantakan)
+3. **Tools** - Docker (Containerize) - AWS (lebih cepat dan fleksibel) - GitHub (Repository untuk semua services) - Jenkins (Integrasi semua services)
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+### 2. Bagaimana menangani keamanan dalam pengiriman data (backend dan mobile apps) pada sistem diatas.
+
+Jelaskan solusi tersebut beserta alasannya.
+**Answer**
+
+1. **Encrypt the Data**
+   Enkripsi data yang sensitif salah satu cara menjamin keamaan dari external
+2. **Pastikan Library yang dipakai aman**
+   Jika kita menggunakan library eksternal, code kita akan bergabung dengan code yang ada dalam library. Ada kemungkinan library mengimplementasi code yang tidak aman.
+3. **Berikan Authorization pada API Endpoint**
+   Authorization modern seperti OAuth atau JWT
+4. **High-level Authentication**
+   Multi Factor Authentication / Biometrics authentication dapat digunakan agar pengiriman data tidak dilakukan pihak external
+
+### 4. Dari dokumen https://testbinar.docs.apiary.io/, menurut anda, apakah ada desian API yang kurang maupun keliru? Jika ada, tuliskan kekurangan-kekurangan desain tersebut dan bagaimana seharusnya dokumentasi itu ditulis.
+
+Issues:
+
+1. Endpoint POST /auth/signup menerima tipe content **application/x-www-form-urlencoded** yang mana tidak sesuai dengan request body yang mengunakan JSON
+2. Id dan Password pada User dan Product seharusnya tidak ditampilkan karena termasuk data sensitif
+3. **Testing API V2** tidak begitu banyak bisa digunakan karena hanya menampilkan **message: Hello World**
+
 <!-- MARKDOWN LINKS -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
@@ -161,3 +211,4 @@ LinkedIn - [Sedana Yoga](https://github.com/SedanaYoga)
 [createproduct]: docs/createProduct.png
 [updateproduct]: docs/updateProduct.png
 [deleteproduct]: docs/deleteProduct.png
+[microservice]: docs/microservice.png
